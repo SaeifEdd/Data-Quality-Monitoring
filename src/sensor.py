@@ -1,11 +1,11 @@
 import sys
 import numpy as np
-from datetime import date
+from datetime import date, timedelta
 
 
 class SensorVisitors:
     def __init__(
-        self, avg_visits, std_visits, perc_mal: float = 0.035, perc_break: float = 0.015
+        self, avg_visits, std_visits, perc_mal: float = 0.085, perc_break: float = 0.05
     ) -> None:
         self.avg_visits = avg_visits
         self.std_visits = std_visits
@@ -49,7 +49,7 @@ class SensorVisitors:
         """
 
         np.random.seed(seed=business_date.toordinal())
-        functionality_proba = np.random.rand()
+        functionality_proba = np.random.random()
         number_visits = self.simulate_visits(business_date, hour)
 
         if number_visits != -1:
@@ -57,7 +57,7 @@ class SensorVisitors:
                 return 0
             elif functionality_proba < self.perc_mal:
                 number_visits *= functionality_proba
-                return number_visits
+                return np.floor(number_visits)
             else:
                 return number_visits
 
@@ -73,5 +73,8 @@ if __name__ == "__main__":
         year, month, day, hour = 2023, 10, 25, 10
     queried_date = date(year, month, day)
 
-    capteur = SensorVisitors(1500, 150)
-    print(capteur.get_exact_visits(queried_date, hour))
+    sensor = SensorVisitors(1500, 150)
+    current_date = queried_date
+    for day in range(1,100):
+        print(current_date, "nb of visitors",sensor.get_exact_visits(current_date, hour))
+        current_date= queried_date + timedelta(days = day)
