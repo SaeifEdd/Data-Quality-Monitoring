@@ -13,3 +13,4 @@ def sensor_visitors(year: int, month: int, day: int, hour: int) -> JSONResponse:
     business_date = date(year, month, day)
     visits_number = asensor.get_exact_visits(business_date, hour)
     return JSONResponse(status_code=200, content=visits_number)
+

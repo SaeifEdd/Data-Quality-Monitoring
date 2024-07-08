@@ -5,13 +5,13 @@ from datetime import date, timedelta
 
 class SensorVisitors:
     def __init__(
-        self, avg_visits, std_visits, perc_mal: float = 0.085, perc_break: float = 0.05
+        self, avg_visits, std_visits, perc_mal: float = 0.085, perc_break: float = 0.05, unit = "visitors"
     ) -> None:
         self.avg_visits = avg_visits
         self.std_visits = std_visits
         self.perc_mal = perc_mal
         self.perc_break = perc_break
-
+        self.unit = unit
     def simulate_visits(self, business_date: date, hour: int) -> int:
         """
         simulate the number of persons detected by a sensor on
@@ -70,11 +70,11 @@ if __name__ == "__main__":
         if sys.argv[2]:
             hour = int(sys.argv[2])
     else:
-        year, month, day, hour = 2023, 10, 25, 10
+        year, month, day, hour = 2024, 6, 1, 10
     queried_date = date(year, month, day)
 
     sensor = SensorVisitors(1500, 150)
     current_date = queried_date
-    for day in range(1,100):
+    for day in range(1,33):
         print(current_date, "nb of visitors",sensor.get_exact_visits(current_date, hour))
         current_date= queried_date + timedelta(days = day)
