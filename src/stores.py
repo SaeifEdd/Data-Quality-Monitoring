@@ -1,8 +1,5 @@
 from datetime import date
-
 import numpy as np
-
-
 from sensor import SensorVisitors
 
 
@@ -25,16 +22,6 @@ class StoreSensor:
 
         # 80/20: most people take the main entrance, and so on ;)
         traffic_percentage = [0.48, 0.30, 0.05, 0.03, 0.01, 0.02, 0.10, 0.01]
-        sensors_units = [
-            "visitors",
-            "kg",
-            "visitors",
-            "visitors",
-            "mm",
-            "visitors",
-            "visitors",
-            "visitors",
-        ]
         np.random.shuffle(traffic_percentage)
 
         # Initialisation of the store's sensors
@@ -45,8 +32,7 @@ class StoreSensor:
                 traffic_percentage[i] * avg_visit,
                 traffic_percentage[i] * std_visit,
                 perc_malfunction,
-                perc_break,
-                unit=sensors_units[i],
+                perc_break
             )
 
             self.sensors.append(sensor)
