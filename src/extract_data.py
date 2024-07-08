@@ -1,12 +1,12 @@
 import sys
 from datetime import date, datetime, timedelta
 import requests
+from src import create_app
 from fastapi.responses import JSONResponse
 
-# url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=YVSC9XM8Y8FTWNEL"
-# local_url = "http://127.0.0.1:8000/?year=2022&month=9&day=10&hour=12"
 
 
+# use local api to extract data
 def get_data_api(business_date, hour):
     year, month, day = business_date.year, business_date.month, business_date.day
     local_url = (
@@ -25,10 +25,14 @@ def get_data_api(business_date, hour):
         print("Failed to parse JSON response")
     return None
 
+# a dictionnary of stores
+store_dict = create_app()
+
 
 
 
 if __name__ == "__main__":
+
     if len(sys.argv) > 1:
         year, month, day = [int(v) for v in sys.argv[1].split("-")]
         try:
