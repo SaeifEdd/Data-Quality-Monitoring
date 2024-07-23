@@ -3,10 +3,9 @@ import os
 from datetime import date, datetime, timedelta
 import requests
 import pandas as pd
-from __init__ import create_app
+from init import create_app
 import numpy as np
 from fastapi.responses import JSONResponse
-
 
 # use local api to extract data
 def get_data_api(business_date, hour):
